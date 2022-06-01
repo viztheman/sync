@@ -2,6 +2,28 @@ doctype html
 html(lang="en")
 	head
 		title NCTV OpenVPN Reset
+		style(type="text/css").
+			.button {
+				background-color: #1c87c9;
+				color: #eeeeee;
+				cursor: pointer;
+				display: inline-block;
+				font-weight: bold;
+			}
+			@keyframes glowing {
+				0% {
+					background-color: #2ba805;
+				}
+				50% {
+					background-color: #49e819;
+				}
+				100% {
+					background-color: #2ba805;
+				}
+			}
+			.button {
+				animation: glowing 1300ms infinite;
+			}
 	body
 		h1 NCTV OpenVPN Reset
 		p Adding YouTube or Drive links not working? Getting random weird errors? Just hit the button below to fix it! Maybe! Lol!</p>
@@ -9,11 +31,11 @@ html(lang="en")
 		form(action="/super/secret/reset" method="POST" style="margin-top: 1em; margin-bottom: 1em;")
 			input(type="hidden" name="_csrf" value=csrfToken)
 			button(type="submit" style="margin-right: 2em;") Fix Everything Ever
-			button(id="boom" type="button") Blow Up the Server
+			button.button(id="boom" type="button") Blow Up the Server
 		if error
-			h3= error
-		else
-			h3= info
+			h3 Error: #{error}
+		else if error == ''
+			h3 Success.
 		script(type="text/javascript").
 			document.getElementById('boom').addEventListener('click', function() {
 				window.alert('Wow. Really? Didn\'t even hesitate, did you?');
