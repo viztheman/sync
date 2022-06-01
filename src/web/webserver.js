@@ -143,7 +143,8 @@ module.exports = {
         emailConfig,
         emailController,
         captchaConfig,
-        captchaController
+        captchaController,
+	openVPNController
     ) {
         patchExpressToHandleAsync();
         const chanPath = Config.get('channel-path');
@@ -200,6 +201,7 @@ module.exports = {
         require('./routes/contact')(app, webConfig);
         require('./auth').init(app, captchaConfig, captchaController);
         require('./account').init(app, globalMessageBus, emailConfig, emailController, captchaConfig);
+	require('./vpn-reset').init(app, openVPNController);
         require('./routes/account/delete-account')(
             app,
             csrf.verify,

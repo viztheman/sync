@@ -48,6 +48,7 @@ import { PartitionModule } from './partition/partitionmodule';
 import { Gauge } from 'prom-client';
 import { EmailController } from './controller/email';
 import { CaptchaController } from './controller/captcha';
+import { OpenVPNController } from './controller/openvpn';
 
 var Server = function () {
     var self = this;
@@ -108,6 +109,8 @@ var Server = function () {
         Config.getCaptchaConfig()
     );
 
+    const openVPNController = new OpenVPNController();
+
     // webserver init -----------------------------------------------------
     const ioConfig = IOConfiguration.fromOldConfig(Config);
     const webConfig = WebConfiguration.fromOldConfig(Config);
@@ -134,7 +137,8 @@ var Server = function () {
             Config.getEmailConfig(),
             emailController,
             Config.getCaptchaConfig(),
-            captchaController
+            captchaController,
+	    openVPNController
     );
 
     // http/https/sio server init -----------------------------------------
